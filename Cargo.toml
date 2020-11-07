@@ -1,6 +1,6 @@
 [package]
 name = "nummer"
-version = "1.2.0"
+version = "1.2.1"
 authors = ["Llathasa Veleth <llathasa@outlook.com>"]
 edition = "2018"
 

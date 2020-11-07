@@ -2,39 +2,48 @@ use std::env;
 use std::str;
 
 #[rustfmt::skip]
-fn to_base(n: i64,
-           base: i64,
-           alph_a: Vec<&str>,
-           alph_b: Vec<&str>) -> Vec<Vec<String>> {
+/// Takes an integer and turns it into target base number.
+/// Uses: [number: i64,
+///        base_to: i64,
+///        alphabet_a: Vec<&str>,
+///        alphabet_b: Vec<&str>]
+/// Yields: (Vec<String>, Vec<String>)
+fn to_base(number:     i64,
+           base_to:    i64,
+           alphabet_a: Vec<&str>,
+           alphabet_b: Vec<&str>) -> (Vec<String>, Vec<String>) {
   let mut res_a: Vec<String> = Vec::new();
   let mut res_b: Vec<String> = Vec::new();
-  let mut num: i64 = n;
+  let mut num:           i64 = number;
   while num != 0 {
-      let mut index: i64 = num % base;
-      num /= base;
+      let mut index: i64 = num % base_to;
+      num /= base_to;
       if index < 0 {
-          index += base.abs();
+          index += base_to.abs();
           num += 1;
       }
-      if base > 36 {
-        res_a.push(alph_a[index as usize].to_string());
-      } else if base < 0 {
+      if base_to > 36 {
+        res_a.push(alphabet_a[index as usize].to_string());
+      } else if base_to < 0 {
         res_a.push(index.to_string());
       } else {
-        res_a.push(alph_b[index as usize].to_string())
+        res_a.push(alphabet_b[index as usize].to_string())
       }
       res_b.push(index.to_string());
   }
   res_a.reverse();
   res_b.reverse();
-  return vec![res_a, res_b];
+  return (res_a, res_b);
 }
 
 #[rustfmt::skip]
-fn roman(n: i64, alph: Vec<(&str, i64)>) -> String {
-  let mut num:        i64 = n;
+/// Takes an integer and turns it into roman numeral.
+/// Uses: [number: i64, alphabet: Vec<(&str, i64)>]
+/// Returns: String
+fn roman(number: i64, alphabet: Vec<(&str, i64)>) -> String {
+  let mut num:        i64 = number;
   let mut min_num: String = String::new();
-  for (symbol, value) in alph {
+  for (symbol, value) in alphabet {
     while value <= num {
       min_num += symbol;
       num     -= value;
@@ -102,7 +111,8 @@ fn main() {
            ("V",             5), ("IV",                 4),
            ("I",             1)];
   for (name, base, prefix_str) in bases {
-    let numbers: Vec<Vec<String>>;
+    let numbers:    (Vec<String>, 
+                     Vec<String>);
     let number_a_str:      String;
     let number_b_str:      String;
     let negate:            String;
@@ -122,8 +132,8 @@ fn main() {
                         base, 
                         alphabet_a.clone(),
                         alphabet_b.clone());
-      number_a_str = numbers[0].join("");
-      number_b_str = numbers[1].join(";");
+      number_a_str = numbers.0.join("");
+      number_b_str = numbers.1.join(";");
       break;
     }
     println!("{}// {}[{}]{}\t{}{}{}",
