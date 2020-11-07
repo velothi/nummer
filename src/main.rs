@@ -1,6 +1,7 @@
 use std::env;
 use std::str;
 
+#[rustfmt::skip]
 fn to_base(n: i64,
            base: i64,
            alph_a: Vec<&str>,
@@ -29,6 +30,14 @@ fn to_base(n: i64,
   return vec![res_a, res_b];
 }
 
+#[rustfmt::skip]
+#[test]
+#[ignore = "not implemented"]
+fn roman() {
+  // ...
+}
+
+#[rustfmt::skip]
 fn main() {
   let color1: &str = "\x1B[34m";
   let color2: &str = "\x1B[32m";
@@ -99,21 +108,33 @@ fn main() {
       break;
     }
     println!("{}// {}[{}]{}\t{}{}{}",
-             color2, color3, prefix_str.to_uppercase(), creset,
-             color1, name,
+             color2,
+             color3,
+             prefix_str.to_uppercase(),
+             creset,
+             color1,
+             name,
              creset);
     println!("{}{}{}\t{}{}",
-             negate, prefix, number_a_str,
-             negate, number_a_str);
+             negate,
+             prefix,
+             number_a_str,
+             negate,
+             number_a_str);
     if base > 10 {
       println!("{}{}{}\t{}{}",
-               negate, prefix, number_a_str.to_uppercase(),
-               negate, number_a_str.to_uppercase());
+               negate,
+               prefix,
+               number_a_str.to_uppercase(),
+               negate,
+               number_a_str.to_uppercase());
     }
     if base > 36 {
       println!("\t{}{}\t{}-- Using only decimal numbers{}",
-               negate, number_b_str,
-               color2, creset);
+               negate,
+               number_b_str,
+               color2,
+               creset);
     }
     println!();
   }
