@@ -31,10 +31,16 @@ fn to_base(n: i64,
 }
 
 #[rustfmt::skip]
-#[test]
-#[ignore = "not implemented"]
-fn roman() {
-  // ...
+fn roman(n: i64, alph: Vec<(&str, i64)>) -> String {
+  let mut num:        i64 = n;
+  let mut min_num: String = String::new();
+  for (symbol, value) in alph {
+    while value <= num {
+      min_num += symbol;
+      num     -= value;
+    }
+  }
+  return min_num;
 }
 
 #[rustfmt::skip]
@@ -82,6 +88,19 @@ fn main() {
            "p", "q", "r", "s", "t",
            "u", "v", "w", "x", "y",
            "z"];
+  let alphabet_c: Vec<(&str, i64)> =
+      vec![("IƆƆƆƆ",   500_000), ("CCCIƆƆƆIƆƆƆƆ", 400_000),
+           ("CCCIƆƆƆ", 100_000), ("CCIƆƆCCCIƆƆƆ",  90_000),
+           ("IƆƆƆ",     50_000), ("CCIƆƆIƆƆƆ",     40_000),
+           ("CCIƆƆ",    10_000), ("MCCIƆƆ",          9000),
+           ("IƆƆ",        5000), ("MIƆƆ",            4000),
+           ("M",          1000), ("CM",               900),
+           ("D",           500), ("CD",               400),
+           ("C",           100), ("XC",                90),
+           ("L",            50), ("XL",                40),
+           ("X",            10), ("IX",                 9),
+           ("V",             5), ("IV",                 4),
+           ("I",             1)];
   for (name, base, prefix_str) in bases {
     let numbers: Vec<Vec<String>>;
     let number_a_str:      String;
@@ -137,5 +156,12 @@ fn main() {
                creset);
     }
     println!();
+  }
+  if decimal_int > 0 && decimal_int < 800_000 {
+    println!("{}//\t{}roman{}\n{}",
+             color2,
+             color1,
+             creset,
+             roman(decimal_int, alphabet_c));
   }
 }
