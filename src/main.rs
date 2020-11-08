@@ -1,3 +1,7 @@
+// Copyright (c) 2020 Velothi
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
 use std::env;
 use std::str;
 
@@ -58,7 +62,7 @@ fn main() {
   let color2: &str = "\x1B[32m";
   let color3: &str = "\x1B[33m";
   let creset: &str = "\x1B[0m";
-  let bases: Vec<(&str, i64, &str)> = 
+  let bases: Vec<(&str, i64, &str)> =
       vec![("negadecimal",  -10, "nd"),
            ("binary",         2,  "b"),
            ("ternary",        3, "te"),
@@ -75,7 +79,7 @@ fn main() {
   let decimal:        &String = &args[1];              // number to translate
   let mut decimal_int:    i64 = decimal.parse::<i64>().unwrap();
   let decimal_int_r:      i64 = decimal_int;
-  let alphabet_a:   Vec<&str> = 
+  let alphabet_a:   Vec<&str> =
       vec!["0", "1", "2", "3", "4", // base > 36 alphabet
            "5", "6", "7", "8", "9",
            "ā", "b", "c", "d", "ē",
@@ -88,7 +92,7 @@ fn main() {
            "κ", "λ", "μ", "ν", "ξ",
            "ο", "π", "ρ", "σ", "τ",
            "υ", "φ", "χ", "ψ", "ω"];
-  let alphabet_b:   Vec<&str> = 
+  let alphabet_b:   Vec<&str> =
       vec!["0", "1", "2", "3", "4", // universal alphabet
            "5", "6", "7", "8", "9",
            "a", "b", "c", "d", "e",
@@ -111,7 +115,7 @@ fn main() {
            ("V",             5), ("IV",                 4),
            ("I",             1)];
   for (name, base, prefix_str) in bases {
-    let numbers:    (Vec<String>, 
+    let numbers:    (Vec<String>,
                      Vec<String>);
     let number_a_str:      String;
     let number_b_str:      String;
@@ -129,7 +133,7 @@ fn main() {
     }
     loop {
       numbers = to_base(decimal_int,
-                        base, 
+                        base,
                         alphabet_a.clone(),
                         alphabet_b.clone());
       number_a_str = numbers.0.join("");
